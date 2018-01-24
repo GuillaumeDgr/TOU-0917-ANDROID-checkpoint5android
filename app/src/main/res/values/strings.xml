@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">WCSTravel</string>
     <string name="content" translatable="false">Contenu</string>
-    <string name="find_flight" translatable="false">Rechercher des vols :</string>
+    <string name="find_flight" translatable="false">Bonjour Bastien !\n Choisis le vol que tu souhaites\n(payé par les élèves de la WCS !) :</string>
     <string name="departure_airport" translatable="false">Aéroport de départ :</string>
     <string name="destination_airport" translatable="false">Aéroport de destination :</string>
     <string name="find" translatable="false">Rechercher</string>
@@ -14,6 +14,7 @@
     <string name="destination_date_result" translatable="false">Date de retour</string>
     <string name="price" translatable="false">Prix</string>
     <string name="travel" translatable="false">Voyage</string>
+    <string name="no_results">Pas de résultats !</string>
     <string-array name="airports">
         <item>NYC</item>
         <item>LAX</item>

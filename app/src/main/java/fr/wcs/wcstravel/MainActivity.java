@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,11 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,6 +61,25 @@ public class MainActivity extends AppCompatActivity {
         mSpinnerDepartureFlight.setAdapter(adapter);
         mSpinnerDestinationFlight.setAdapter(adapter);
 
+        mSpinnerDepartureFlight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                checkButton();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        mSpinnerDestinationFlight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                checkButton();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         // Date Pickers
         mTextViewDepartureDate = findViewById(R.id.textViewDepartureDate);
         mTextViewReturnDate = findViewById(R.id.textViewReturnDate);
@@ -76,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Search Flight
         mButtonFindFlight = findViewById(R.id.buttonFindFlight);
+        checkButton();
         mButtonFindFlight.setOnClickListener(v -> {
             TravelModel travelModel = new TravelModel();
             travelModel.setTravel(mSpinnerDepartureFlight.getSelectedItem().toString()
@@ -96,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 String month = String.format("%02d", (mStartCalendar.get(Calendar.MONTH) + 1));
                 String day = String.format("%02d", mStartCalendar.get(Calendar.DAY_OF_MONTH));
                 mTextViewDepartureDate.setText(year + "-" + month + "-" + day);
+                checkButton();
             }
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -121,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 String month = String.format("%02d", (mEndCalendar.get(Calendar.MONTH) + 1));
                 String day = String.format("%02d", mEndCalendar.get(Calendar.DAY_OF_MONTH));
                 mTextViewReturnDate.setText(year + "-" + month + "-" + day);
+                checkButton();
             }
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -134,8 +153,20 @@ public class MainActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this,
                     datePicker, mEndCalendar.get(Calendar.YEAR), mEndCalendar.get(Calendar.MONTH),
                     mEndCalendar.get(Calendar.DAY_OF_MONTH) + 1);
-            datePickerDialog.getDatePicker().setMinDate(mStartCalendar.getTime().getTime());
+            datePickerDialog.getDatePicker().setMinDate(mStartCalendar.getTime().getTime() + 86400000);
             datePickerDialog.show();
         });
+    }
+
+    public void checkButton() {
+        if ((mSpinnerDepartureFlight.getSelectedItem().toString()
+                .equals(mSpinnerDestinationFlight.getSelectedItem().toString()))
+                || mTextViewDepartureDate.getText().toString().isEmpty()
+                || mTextViewReturnDate.getText().toString().isEmpty()) {
+            mButtonFindFlight.setEnabled(false);
+        }
+        else {
+            mButtonFindFlight.setEnabled(true);
+        }
     }
 }

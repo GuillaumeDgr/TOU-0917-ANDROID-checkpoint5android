@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +30,7 @@ public class ResultActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private TravelModel mTravelModel;
+    private TextView mTextViewNoResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         mRecyclerViewFlightList = findViewById(R.id.recyclerViewFlightList);
+        mTextViewNoResults = findViewById(R.id.textViewNoResults);
 
         mTravelAdapter = new TravelAdapter(mTravelModelList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -80,6 +85,12 @@ public class ResultActivity extends AppCompatActivity {
                             && (mTravelModelReturnDate.before(travelModelReturnDate)
                             || mTravelModelReturnDate.equals(travelModelReturnDate)))) {
                         mTravelModelList.add(mTravelModel);
+                    }
+
+                    if (mTravelModelList.isEmpty()) {
+                        mTextViewNoResults.setVisibility(View.VISIBLE);
+                    } else {
+                        mTextViewNoResults.setVisibility(View.GONE);
                     }
                 }
                 mTravelAdapter.notifyDataSetChanged();

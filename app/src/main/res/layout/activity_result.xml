@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
+    android:layout_gravity="center"
     tools:context="fr.wcs.wcstravel.ResultActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -13,5 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textViewNoResults"
+        android:visibility="gone"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_results"
+        android:layout_gravity="center"
+        android:gravity="center"/>
 
 </LinearLayout>
