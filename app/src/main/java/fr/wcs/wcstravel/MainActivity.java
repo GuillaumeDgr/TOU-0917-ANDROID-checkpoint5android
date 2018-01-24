@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
     String TAG = "WCSTravel";
 
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView textViewFirebaseContent = findViewById(R.id.textViewFirebaseContent);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference("checkpoint5");
         mDatabaseReference.child("students").child("GuillaumeDgr").child("hasContent")
                 .addValueEventListener(new ValueEventListener() {
             @Override
