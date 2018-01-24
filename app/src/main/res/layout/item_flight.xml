@@ -3,33 +3,86 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/button_background"
+    android:layout_margin="15dp">
 
     <TextView
         android:id="@+id/textViewAirline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:background="@drawable/button_background1"
         android:hint="@string/airline"/>
-
-    <TextView
-        android:id="@+id/textDepartureDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="@string/departure_date_result"/>
-
-    <TextView
-        android:id="@+id/textViewReturnDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="@string/destination_date_result"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_convert"/>
+
+        <TextView
+            android:id="@+id/textViewTravel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:hint="@string/travel"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_convert"/>
+
+        <TextView
+            android:id="@+id/textDepartureDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:hint="@string/departure_date_result"/>
+
+        <TextView
+            android:id="@+id/textViewReturnDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimary"
+            android:hint="@string/destination_date_result"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButtonConvertEuro"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_convert"/>
+
+        <ImageButton
+            android:id="@+id/imageButtonConvertDollar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/dollar"/>
 
         <TextView
             android:id="@+id/textViewPrice"
@@ -37,21 +90,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:gravity="center"
+            android:textColor="@color/colorPrimary"
             android:hint="@string/price"/>
 
-        <ImageButton
-            android:id="@+id/imageButtonConvert"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/ic_convert"/>
-
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewTravel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="@string/travel"/>
 
 </LinearLayout>

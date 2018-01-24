@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Firebase hasContent Value
-        final TextView textViewFirebaseContent = findViewById(R.id.textViewFirebaseContent);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("checkpoint5");
         mDatabaseReference.child("students").child("GuillaumeDgr").child("hasContent")
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Boolean content = snapshot.getValue(Boolean.class);
-                textViewFirebaseContent.setText(String.valueOf(content));
                 Log.d(TAG, "hasContent [" + content + "]");
             }
 

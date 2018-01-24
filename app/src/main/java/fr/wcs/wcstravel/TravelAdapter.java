@@ -37,8 +37,25 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         holder.mTextViewReturnDate.setText(model.getReturn_date());
         holder.mTextViewPrice.setText(model.getPrice());
         holder.mTextViewTravel.setText(model.getTravel());
-        holder.mImageButtonConvert.setOnClickListener(v -> {
 
+        holder.mImageButtonConvertEuro.setVisibility(View.GONE);
+        holder.mImageButtonConvertEuro.setOnClickListener(v -> {
+            Double priceDouble = Double.parseDouble(holder.mTextViewPrice.getText().toString());
+            String newPrice = convertPrice(priceDouble, "EUR", "USD");
+            holder.mTextViewPrice.setText(newPrice);
+
+            holder.mImageButtonConvertEuro.setVisibility(View.GONE);
+            holder.mImageButtonConvertDollar.setVisibility(View.VISIBLE);
+        });
+
+        holder.mImageButtonConvertDollar.setOnClickListener(v -> {
+            String price = model.getPrice();
+            Double priceDouble = Double.parseDouble(price);
+            String newPrice = convertPrice(priceDouble, "USD", "EUR");
+            holder.mTextViewPrice.setText(newPrice);
+
+            holder.mImageButtonConvertEuro.setVisibility(View.VISIBLE);
+            holder.mImageButtonConvertDollar.setVisibility(View.GONE);
         });
     }
 
@@ -50,7 +67,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView mTextViewAirline, mTextDepartureDate, mTextViewReturnDate, mTextViewPrice, mTextViewTravel;
-        ImageButton mImageButtonConvert;
+        ImageButton mImageButtonConvertEuro, mImageButtonConvertDollar;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -60,7 +77,21 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
             mTextViewReturnDate = itemView.findViewById(R.id.textViewReturnDate);
             mTextViewPrice = itemView.findViewById(R.id.textViewPrice);
             mTextViewTravel = itemView.findViewById(R.id.textViewTravel);
-            mImageButtonConvert = itemView.findViewById(R.id.imageButtonConvert);
+            mImageButtonConvertEuro = itemView.findViewById(R.id.imageButtonConvertEuro);
+            mImageButtonConvertDollar = itemView.findViewById(R.id.imageButtonConvertDollar);
         }
+    }
+
+    public String convertPrice(Double price, String currencyEntry, String currencyReturn) {
+        String newPriceString = "";
+        if (currencyEntry.equals("EUR") && currencyReturn.equals("USD")) {
+            Double newPrice = price * 1.24;
+            newPriceString = String.valueOf(newPrice);
+        }
+        if (currencyEntry.equals("USD") && currencyReturn.equals("EUR")) {
+            Double newPrice = price * 0.81;
+            newPriceString = String.valueOf(newPrice);
+        }
+        return newPriceString;
     }
 }
