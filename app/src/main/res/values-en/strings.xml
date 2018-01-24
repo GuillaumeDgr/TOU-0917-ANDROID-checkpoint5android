@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WCSTravel</string>
+    <string name="content" translatable="false">Content</string>
+    <string name="find_flight" translatable="false">Find flights :</string>
+    <string name="departure_airport" translatable="false">Departure Airport :</string>
+    <string name="destination_airport" translatable="false">Destination Airport :</string>
+    <string name="find" translatable="false">Search</string>
+    <string name="departure_date" translatable="false">Departure date :</string>
+    <string name="return_date" translatable="false">Destination date :</string>
+    <string name="chose_departure_date" translatable="false">Chose departure date</string>
+    <string name="chose_return_date" translatable="false">Chose destination date</string>
+    <string name="airline" translatable="false">Airline</string>
+    <string name="departure_date_result" translatable="false">Departure Date</string>
+    <string name="destination_date_result" translatable="false">Return Date</string>
+    <string name="price" translatable="false">Price</string>
+    <string name="travel" translatable="false">Travel</string>
+</resources>

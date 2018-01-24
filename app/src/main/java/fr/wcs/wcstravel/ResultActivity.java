@@ -11,7 +11,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
@@ -21,6 +26,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<TravelModel> mTravelModelList = new ArrayList<>();
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
+    private TravelModel mTravelModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +46,41 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void loadTravels() {
+        TravelModel travelModel = getIntent().getParcelableExtra("travelModel");
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("checkpoint5");
         mDatabaseReference.child("travels").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    mTravelModelList.add(snap.getValue(TravelModel.class));
+                    mTravelModel = snap.getValue(TravelModel.class);
+
+                    String departureDateString = mTravelModel.getDeparture_date();
+                    String returnDateString = mTravelModel.getReturn_date();
+                    String departureDateSearchString = travelModel.getDeparture_date();
+                    String returnDateSearchString = travelModel.getReturn_date();
+
+                    Date mTravelModelDepartureDate = null, mTravelModelReturnDate = null,
+                            travelModelDepartureDate = null, travelModelReturnDate = null;
+
+                    DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        mTravelModelDepartureDate = sdf.parse(departureDateString);
+                        mTravelModelReturnDate = sdf.parse(returnDateString);
+                        travelModelDepartureDate = sdf.parse(departureDateSearchString);
+                        travelModelReturnDate = sdf.parse(returnDateSearchString);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if ((mTravelModel.getTravel().equals(travelModel.getTravel()))
+                            && ((mTravelModelDepartureDate.after(travelModelDepartureDate)
+                            || mTravelModelDepartureDate.equals(travelModelDepartureDate))
+                            && (mTravelModelReturnDate.before(travelModelReturnDate)
+                            || mTravelModelReturnDate.equals(travelModelReturnDate)))) {
+                        mTravelModelList.add(mTravelModel);
+                    }
                 }
                 mTravelAdapter.notifyDataSetChanged();
             }

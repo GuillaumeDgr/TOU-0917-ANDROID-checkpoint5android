@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.List;
 
 /**
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder> {
 
-    private List<TravelModel> mTravelModelList;
+    private List<TravelModel> mModelList;
 
     public TravelAdapter(List<TravelModel> travelModelList) {
-        mTravelModelList = travelModelList;
+        mModelList = travelModelList;
     }
 
     @Override
@@ -30,23 +30,27 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(TravelAdapter.ViewHolder holder, int position) {
-        TravelModel travelModel = mTravelModelList.get(position);
+        TravelModel model = mModelList.get(position);
 
-        holder.mTextViewAirline.setText(travelModel.getAirline());
-        holder.mTextDepartureDate.setText(travelModel.getDepartureDate());
-        holder.mTextViewReturnDate.setText(travelModel.getReturnDate());
-        holder.mTextViewPrice.setText(travelModel.getPrice());
-        holder.mTextViewTravel.setText(travelModel.getTravel());
+        holder.mTextViewAirline.setText(model.getAirline());
+        holder.mTextDepartureDate.setText(model.getDeparture_date());
+        holder.mTextViewReturnDate.setText(model.getReturn_date());
+        holder.mTextViewPrice.setText(model.getPrice());
+        holder.mTextViewTravel.setText(model.getTravel());
+        holder.mImageButtonConvert.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mTravelModelList.size();
+        return mModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView mTextViewAirline, mTextDepartureDate, mTextViewReturnDate, mTextViewPrice, mTextViewTravel;
+        ImageButton mImageButtonConvert;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -56,6 +60,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
             mTextViewReturnDate = itemView.findViewById(R.id.textViewReturnDate);
             mTextViewPrice = itemView.findViewById(R.id.textViewPrice);
             mTextViewTravel = itemView.findViewById(R.id.textViewTravel);
+            mImageButtonConvert = itemView.findViewById(R.id.imageButtonConvert);
         }
     }
 }

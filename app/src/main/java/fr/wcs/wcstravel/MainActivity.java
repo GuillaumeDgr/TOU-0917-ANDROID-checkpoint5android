@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -78,7 +79,14 @@ public class MainActivity extends AppCompatActivity {
         // Search Flight
         mButtonFindFlight = findViewById(R.id.buttonFindFlight);
         mButtonFindFlight.setOnClickListener(v -> {
+            TravelModel travelModel = new TravelModel();
+            travelModel.setTravel(mSpinnerDepartureFlight.getSelectedItem().toString()
+                    + "_" + mSpinnerDestinationFlight.getSelectedItem().toString());
+            travelModel.setDeparture_date(mTextViewDepartureDate.getText().toString());
+            travelModel.setReturn_date(mTextViewReturnDate.getText().toString());
+
             Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+            intent.putExtra("travelModel", travelModel);
             startActivity(intent);
         });
     }
@@ -86,9 +94,10 @@ public class MainActivity extends AppCompatActivity {
     public void chooseDepartureDate() {
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
             private void updateLabel() {
-                String month = String.format(Locale.FRANCE, "%tB", new Date(mStartCalendar.get(Calendar.MONTH)) {});
-                String day = String.valueOf(mStartCalendar.get(Calendar.DAY_OF_MONTH));
-                mTextViewDepartureDate.setText(day +" "+ month);
+                String year = String.format("%04d", mStartCalendar.get(Calendar.YEAR));
+                String month = String.format("%02d", (mStartCalendar.get(Calendar.MONTH) + 1));
+                String day = String.format("%02d", mStartCalendar.get(Calendar.DAY_OF_MONTH));
+                mTextViewDepartureDate.setText(year + "-" + month + "-" + day);
             }
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -110,9 +119,10 @@ public class MainActivity extends AppCompatActivity {
     public void chooseReturnDate() {
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
             private void updateLabel() {
-                String month = String.format(Locale.FRANCE, "%tB", new Date(mEndCalendar.get(Calendar.MONTH)) {});
-                String day = String.valueOf(mEndCalendar.get(Calendar.DAY_OF_MONTH));
-                mTextViewReturnDate.setText(day +" "+ month);
+                String year = String.format("%04d", mEndCalendar.get(Calendar.YEAR));
+                String month = String.format("%02d", (mEndCalendar.get(Calendar.MONTH) + 1));
+                String day = String.format("%02d", mEndCalendar.get(Calendar.DAY_OF_MONTH));
+                mTextViewReturnDate.setText(year + "-" + month + "-" + day);
             }
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
