@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">WCSTravel</string>
+    <string name="content">Contenu</string>
+    <string name="find_flight">Rechercher des vols :</string>
+    <string name="departure_airport">Aéroport de départ :</string>
+    <string name="destination_airport">Aéroport de destination :</string>
+    <string name="find">Rechercher</string>
+    <string name="departure_date">Date de départ :</string>
+    <string name="return_date">Date de retour :</string>
+    <string name="chose_departure_date">Choisissez la date de départ</string>
+    <string name="chose_return_date">Choisissez votre date de retour</string>
+    <string name="airline">Compagnie</string>
+    <string name="departure_date_result">Date de départ</string>
+    <string name="destination_date_result">Date de retour</string>
+    <string name="price">Prix</string>
+    <string name="travel">Voyage</string>
+    <string-array name="airports">
+        <item>BOS</item>
+        <item>LAX</item>
+        <item>MIA</item>
+        <item>NYC</item>
+    </string-array>
 </resources>
